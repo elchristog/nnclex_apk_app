@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, SafeAreaView, ActivityIndicator } from 'react-native';
 import { UserProfile } from '../types';
+import { AppLogo } from '../components/AppLogo';
 
 interface LoginScreenProps {
   onLoginSuccess: (user: UserProfile) => void;
@@ -19,7 +20,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
         id: 'usr-google-101',
         email: 'enfermera.estudiante@gmail.com',
         name: 'Lic. María González, RN',
-        photoUrl: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&auto=format&fit=crop',
+        photoUrl: 'https://rnnclex.com/wp-content/uploads/2025/06/rn_nclex_logo_large-300x300.webp',
         examType: examType,
         studyLanguagePreference: 'ES',
         streakDays: 5,
@@ -37,9 +38,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
       <View style={styles.content}>
         {/* Logo and Branding Header */}
         <View style={styles.brandContainer}>
-          <View style={styles.logoBadge}>
-            <Text style={styles.logoText}>RNN</Text>
-          </View>
+          <AppLogo size={88} borderWidth={3} style={{ marginBottom: 16 }} />
           <Text style={styles.title}>RNN CLEX Mobile</Text>
           <Text style={styles.subtitle}>
             Prepárate para el NCLEX-RN / PN con simulaciones NGN, lecciones LMS interactivas y tutores con IA.

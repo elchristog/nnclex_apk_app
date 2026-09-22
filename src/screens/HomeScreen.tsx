@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import { UserProfile, Course } from '../types';
+import { AppLogo } from '../components/AppLogo';
 
 interface HomeScreenProps {
   user: UserProfile;
@@ -27,10 +28,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
         {/* User Header Bar */}
         <View style={styles.header}>
           <View style={styles.userInfo}>
-            <Image
-              source={{ uri: user.photoUrl || 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&auto=format&fit=crop' }}
-              style={styles.avatar}
-            />
+            <AppLogo size={52} borderWidth={2} style={{ marginRight: 12 }} />
             <View>
               <Text style={styles.greeting}>¡Hola, {user.name.split(' ')[1] || 'Enfermera'}! 👋</Text>
               <Text style={styles.badgeText}>{user.examType} Candidate</Text>
