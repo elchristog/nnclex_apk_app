@@ -1,0 +1,10 @@
+node_modules/
+.expo/
+dist/
+npm-debug.*
+*.apk
+*.aab
+*.ipa
+*.env
+*.env.local
+.DS_Store

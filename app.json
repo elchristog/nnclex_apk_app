@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "RNN CLEX Mobile",
+    "slug": "rnnclex-apk-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0b0f19"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.rnnclex.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0b0f19"
+      },
+      "package": "com.rnnclex.app",
+      "permissions": [
+        "INTERNET",
+        "ACCESS_NETWORK_STATE"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
