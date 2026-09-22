@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, SafeAreaView, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, SafeAreaView, ActivityIndicator, ScrollView } from 'react-native';
 import { UserProfile } from '../types';
 import { AppLogo } from '../components/AppLogo';
 
@@ -34,60 +34,77 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        {/* Logo and Branding Header */}
-        <View style={styles.brandContainer}>
-          <AppLogo size={96} borderWidth={3} style={{ marginBottom: 18 }} />
-          <Text style={styles.title}>RNN CLEX</Text>
-          <Text style={styles.subtitle}>
-            Preparación Bilingüe Especializada para el <Text style={styles.highlightText}>NCLEX-RN®</Text>
-          </Text>
-        </View>
-
-        {/* Bilingue Value Proposition Card */}
-        <View style={styles.card}>
-          <View style={styles.badgeContainer}>
-            <Text style={styles.badgeText}>🌍 Método Bilingüe Gradual</Text>
+      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+        <View style={styles.content}>
+          {/* Logo and Branding Header */}
+          <View style={styles.brandContainer}>
+            <AppLogo size={90} borderWidth={3} style={{ marginBottom: 14 }} />
+            <Text style={styles.title}>RNNCLEX</Text>
+            <Text style={styles.subtitle}>
+              Plataforma Bilingüe Especializada para pasar tu <Text style={styles.highlightText}>NCLEX-RN®</Text>
+            </Text>
           </View>
-          <Text style={styles.cardHeadline}>
-            Domina la terminología médica en inglés sin barreras de idioma
-          </Text>
-          <Text style={styles.cardBody}>
-            Estudia conceptos complejos en español mientras asimilas progresivamente la terminología clínica clave y las estructuras de preguntas en inglés requeridas para el NCLEX-RN.
-          </Text>
-          
-          <View style={styles.featureRow}>
-            <Text style={styles.featureBullet}>✓ Simulaciones adaptativas CAT & Casos NGN</Text>
-            <Text style={styles.featureBullet}>✓ Glosario médico bilingüe e ilustraciones con IA</Text>
+
+          {/* Visual Value Proposition Cards Grid */}
+          <View style={styles.valueGrid}>
+            <View style={styles.valueCard}>
+              <View style={[styles.iconCircle, { backgroundColor: 'rgba(99, 102, 241, 0.15)' }]}>
+                <Text style={styles.cardEmoji}>🇪🇸 ➔ 🇺🇸</Text>
+              </View>
+              <View style={styles.cardTextContainer}>
+                <Text style={styles.cardTitle}>Español a Inglés</Text>
+                <Text style={styles.cardDesc}>Estudia en español mientras aprendes la terminología en inglés sin frustración.</Text>
+              </View>
+            </View>
+
+            <View style={styles.valueCard}>
+              <View style={[styles.iconCircle, { backgroundColor: 'rgba(59, 130, 246, 0.15)' }]}>
+                <Text style={styles.cardEmoji}>🩺</Text>
+              </View>
+              <View style={styles.cardTextContainer}>
+                <Text style={styles.cardTitle}>Vocabulario Clínico</Text>
+                <Text style={styles.cardDesc}>Asimila términos médicos clave paso a paso con lecciones e ilustraciones interactivas.</Text>
+              </View>
+            </View>
+
+            <View style={styles.valueCard}>
+              <View style={[styles.iconCircle, { backgroundColor: 'rgba(16, 185, 129, 0.15)' }]}>
+                <Text style={styles.cardEmoji}>⚡</Text>
+              </View>
+              <View style={styles.cardTextContainer}>
+                <Text style={styles.cardTitle}>Simulaciones NGN & CAT</Text>
+                <Text style={styles.cardDesc}>Practica con preguntas reales adaptativas y casos clínicos de Nueva Generación.</Text>
+              </View>
+            </View>
+          </View>
+
+          {/* Exclusive Google Sign-In Action */}
+          <View style={styles.authActionContainer}>
+            <TouchableOpacity
+              style={styles.googleButton}
+              onPress={handleGoogleSignIn}
+              disabled={loading}
+              activeOpacity={0.85}
+            >
+              {loading ? (
+                <ActivityIndicator color="#0b0f19" />
+              ) : (
+                <>
+                  <Image
+                    source={require('../../assets/google_g_logo.png')}
+                    style={styles.googleIcon}
+                    resizeMode="contain"
+                  />
+                  <Text style={styles.googleButtonText}>Iniciar Sesión con Google</Text>
+                </>
+              )}
+            </TouchableOpacity>
+            <Text style={styles.disclaimerText}>
+              Acceso directo y seguro con tu cuenta de Google.
+            </Text>
           </View>
         </View>
-
-        {/* Exclusive Google Sign-In Action */}
-        <View style={styles.authActionContainer}>
-          <TouchableOpacity
-            style={styles.googleButton}
-            onPress={handleGoogleSignIn}
-            disabled={loading}
-            activeOpacity={0.85}
-          >
-            {loading ? (
-              <ActivityIndicator color="#0b0f19" />
-            ) : (
-              <>
-                <Image
-                  source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' }}
-                  style={styles.googleIcon}
-                  resizeMode="contain"
-                />
-                <Text style={styles.googleButtonText}>Iniciar Sesión con Google</Text>
-              </>
-            )}
-          </TouchableOpacity>
-          <Text style={styles.disclaimerText}>
-            Acceso seguro mediante autenticación directa con tu cuenta de Google.
-          </Text>
-        </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -97,79 +114,73 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#0b0f19',
   },
-  content: {
-    flex: 1,
-    paddingHorizontal: 24,
+  scrollContent: {
+    flexGrow: 1,
     justifyContent: 'center',
+    paddingVertical: 24,
+  },
+  content: {
+    paddingHorizontal: 20,
   },
   brandContainer: {
     alignItems: 'center',
-    marginBottom: 28,
+    marginBottom: 24,
   },
   title: {
-    fontSize: 32,
+    fontSize: 34,
     fontWeight: '900',
     color: '#ffffff',
-    marginBottom: 6,
-    letterSpacing: 0.5,
+    marginBottom: 4,
+    letterSpacing: 1,
   },
   subtitle: {
-    fontSize: 15,
+    fontSize: 14,
     color: '#cbd5e1',
     textAlign: 'center',
-    lineHeight: 22,
-    paddingHorizontal: 12,
+    lineHeight: 20,
+    paddingHorizontal: 8,
   },
   highlightText: {
     color: '#3b82f6',
     fontWeight: '800',
   },
-  card: {
+  valueGrid: {
+    gap: 10,
+    marginBottom: 26,
+  },
+  valueCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: '#1e293b',
-    borderRadius: 20,
-    padding: 20,
+    borderRadius: 16,
+    padding: 14,
     borderWidth: 1,
-    borderColor: '#334155',
-    marginBottom: 28,
+    borderColor: 'rgba(255, 255, 255, 0.08)',
   },
-  badgeContainer: {
-    alignSelf: 'flex-start',
-    backgroundColor: '#1e1b4b',
-    borderColor: '#6366f1',
-    borderWidth: 1,
-    borderRadius: 12,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    marginBottom: 10,
+  iconCircle: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 14,
   },
-  badgeText: {
-    color: '#818cf8',
-    fontSize: 12,
-    fontWeight: '700',
+  cardEmoji: {
+    fontSize: 20,
   },
-  cardHeadline: {
-    fontSize: 16,
+  cardTextContainer: {
+    flex: 1,
+  },
+  cardTitle: {
+    fontSize: 15,
     fontWeight: '800',
     color: '#ffffff',
-    marginBottom: 8,
-    lineHeight: 22,
+    marginBottom: 2,
   },
-  cardBody: {
-    fontSize: 13,
-    color: '#94a3b8',
-    lineHeight: 19,
-    marginBottom: 12,
-  },
-  featureRow: {
-    borderTopWidth: 1,
-    borderTopColor: '#334155',
-    paddingTop: 10,
-    gap: 4,
-  },
-  featureBullet: {
+  cardDesc: {
     fontSize: 12,
-    color: '#38bdf8',
-    fontWeight: '600',
+    color: '#94a3b8',
+    lineHeight: 16,
   },
   authActionContainer: {
     alignItems: 'center',
@@ -180,9 +191,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#ffffff',
     width: '100%',
-    height: 54,
+    height: 52,
     borderRadius: 14,
-    marginBottom: 12,
+    marginBottom: 10,
     shadowColor: '#ffffff',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.15,
@@ -190,9 +201,9 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   googleIcon: {
-    width: 24,
-    height: 24,
-    marginRight: 12,
+    width: 22,
+    height: 22,
+    marginRight: 10,
   },
   googleButtonText: {
     fontSize: 16,
@@ -203,6 +214,5 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#64748b',
     textAlign: 'center',
-    marginTop: 2,
   },
 });
