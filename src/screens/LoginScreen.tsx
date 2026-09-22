@@ -9,7 +9,6 @@ interface LoginScreenProps {
 
 export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
   const [loading, setLoading] = useState(false);
-  const [examType, setExamType] = useState<'NCLEX-RN' | 'NCLEX-PN'>('NCLEX-RN');
 
   const handleGoogleSignIn = async () => {
     setLoading(true);
@@ -21,7 +20,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
         email: 'enfermera.estudiante@gmail.com',
         name: 'Lic. María González, RN',
         photoUrl: 'https://rnnclex.com/wp-content/uploads/2025/06/rn_nclex_logo_large-300x300.webp',
-        examType: examType,
+        examType: 'NCLEX-RN',
         studyLanguagePreference: 'ES',
         streakDays: 5,
         thetaAbility: 0.85,
@@ -38,34 +37,28 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
       <View style={styles.content}>
         {/* Logo and Branding Header */}
         <View style={styles.brandContainer}>
-          <AppLogo size={88} borderWidth={3} style={{ marginBottom: 16 }} />
-          <Text style={styles.title}>RNN CLEX Mobile</Text>
+          <AppLogo size={96} borderWidth={3} style={{ marginBottom: 18 }} />
+          <Text style={styles.title}>RNN CLEX</Text>
           <Text style={styles.subtitle}>
-            Prepárate para el NCLEX-RN / PN con simulaciones NGN, lecciones LMS interactivas y tutores con IA.
+            Preparación Bilingüe Especializada para el <Text style={styles.highlightText}>NCLEX-RN®</Text>
           </Text>
         </View>
 
-        {/* Exam Selection Card */}
+        {/* Bilingue Value Proposition Card */}
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>Selecciona tu Examen Objetivo</Text>
-          <View style={styles.selectorRow}>
-            <TouchableOpacity
-              style={[styles.selectorTab, examType === 'NCLEX-RN' && styles.selectorTabActive]}
-              onPress={() => setExamType('NCLEX-RN')}
-            >
-              <Text style={[styles.selectorTabText, examType === 'NCLEX-RN' && styles.selectorTabTextActive]}>
-                NCLEX-RN
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[styles.selectorTab, examType === 'NCLEX-PN' && styles.selectorTabActive]}
-              onPress={() => setExamType('NCLEX-PN')}
-            >
-              <Text style={[styles.selectorTabText, examType === 'NCLEX-PN' && styles.selectorTabTextActive]}>
-                NCLEX-PN
-              </Text>
-            </TouchableOpacity>
+          <View style={styles.badgeContainer}>
+            <Text style={styles.badgeText}>🌍 Método Bilingüe Gradual</Text>
+          </View>
+          <Text style={styles.cardHeadline}>
+            Domina la terminología médica en inglés sin barreras de idioma
+          </Text>
+          <Text style={styles.cardBody}>
+            Estudia conceptos complejos en español mientras asimilas progresivamente la terminología clínica clave y las estructuras de preguntas en inglés requeridas para el NCLEX-RN.
+          </Text>
+          
+          <View style={styles.featureRow}>
+            <Text style={styles.featureBullet}>✓ Simulaciones adaptativas CAT & Casos NGN</Text>
+            <Text style={styles.featureBullet}>✓ Glosario médico bilingüe e ilustraciones con IA</Text>
           </View>
         </View>
 
@@ -75,22 +68,23 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
             style={styles.googleButton}
             onPress={handleGoogleSignIn}
             disabled={loading}
-            activeOpacity={0.8}
+            activeOpacity={0.85}
           >
             {loading ? (
               <ActivityIndicator color="#0b0f19" />
             ) : (
               <>
                 <Image
-                  source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.png' }}
+                  source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' }}
                   style={styles.googleIcon}
+                  resizeMode="contain"
                 />
-                <Text style={styles.googleButtonText}>Continuar con Google</Text>
+                <Text style={styles.googleButtonText}>Iniciar Sesión con Google</Text>
               </>
             )}
           </TouchableOpacity>
           <Text style={styles.disclaimerText}>
-            Acceso único seguro mediante autenticación directa con tu cuenta de Google.
+            Acceso seguro mediante autenticación directa con tu cuenta de Google.
           </Text>
         </View>
       </View>
@@ -110,39 +104,25 @@ const styles = StyleSheet.create({
   },
   brandContainer: {
     alignItems: 'center',
-    marginBottom: 36,
-  },
-  logoBadge: {
-    width: 64,
-    height: 64,
-    borderRadius: 16,
-    backgroundColor: '#3b82f6',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 16,
-    shadowColor: '#3b82f6',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.4,
-    shadowRadius: 10,
-  },
-  logoText: {
-    fontSize: 22,
-    fontWeight: '900',
-    color: '#ffffff',
-    letterSpacing: 1,
+    marginBottom: 28,
   },
   title: {
-    fontSize: 28,
-    fontWeight: '800',
+    fontSize: 32,
+    fontWeight: '900',
     color: '#ffffff',
-    marginBottom: 8,
+    marginBottom: 6,
+    letterSpacing: 0.5,
   },
   subtitle: {
-    fontSize: 14,
-    color: '#94a3b8',
+    fontSize: 15,
+    color: '#cbd5e1',
     textAlign: 'center',
-    lineHeight: 20,
+    lineHeight: 22,
     paddingHorizontal: 12,
+  },
+  highlightText: {
+    color: '#3b82f6',
+    fontWeight: '800',
   },
   card: {
     backgroundColor: '#1e293b',
@@ -152,35 +132,44 @@ const styles = StyleSheet.create({
     borderColor: '#334155',
     marginBottom: 28,
   },
-  cardTitle: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#cbd5e1',
-    marginBottom: 14,
-    textAlign: 'center',
-  },
-  selectorRow: {
-    flexDirection: 'row',
-    backgroundColor: '#0f172a',
+  badgeContainer: {
+    alignSelf: 'flex-start',
+    backgroundColor: '#1e1b4b',
+    borderColor: '#6366f1',
+    borderWidth: 1,
     borderRadius: 12,
-    padding: 4,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    marginBottom: 10,
   },
-  selectorTab: {
-    flex: 1,
-    paddingVertical: 12,
-    alignItems: 'center',
-    borderRadius: 10,
-  },
-  selectorTabActive: {
-    backgroundColor: '#2563eb',
-  },
-  selectorTabText: {
-    fontSize: 14,
+  badgeText: {
+    color: '#818cf8',
+    fontSize: 12,
     fontWeight: '700',
-    color: '#64748b',
   },
-  selectorTabTextActive: {
+  cardHeadline: {
+    fontSize: 16,
+    fontWeight: '800',
     color: '#ffffff',
+    marginBottom: 8,
+    lineHeight: 22,
+  },
+  cardBody: {
+    fontSize: 13,
+    color: '#94a3b8',
+    lineHeight: 19,
+    marginBottom: 12,
+  },
+  featureRow: {
+    borderTopWidth: 1,
+    borderTopColor: '#334155',
+    paddingTop: 10,
+    gap: 4,
+  },
+  featureBullet: {
+    fontSize: 12,
+    color: '#38bdf8',
+    fontWeight: '600',
   },
   authActionContainer: {
     alignItems: 'center',
@@ -198,10 +187,11 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.15,
     shadowRadius: 8,
+    elevation: 4,
   },
   googleIcon: {
-    width: 22,
-    height: 22,
+    width: 24,
+    height: 24,
     marginRight: 12,
   },
   googleButtonText: {
@@ -213,6 +203,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#64748b',
     textAlign: 'center',
-    marginTop: 4,
+    marginTop: 2,
   },
 });
